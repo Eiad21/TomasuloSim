@@ -1,5 +1,8 @@
 package utility;
 
-public class RFEntry {
+import components.ReservationStation;
 
+public class RFEntry {
+	private double value;
+	private ReservationStation qI;
 }

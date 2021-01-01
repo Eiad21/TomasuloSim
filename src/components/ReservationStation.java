@@ -31,4 +31,8 @@ public class ReservationStation {
 	public void flushInst(){
 		busy = false;
 	}
+	
+	public void run() {
+		timeRemExec--;
+	}
 }

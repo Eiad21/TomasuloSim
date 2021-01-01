@@ -1,5 +1,7 @@
 package components;
 
-public class RegisterFile {
+import utility.RFEntry;
 
+public class RegisterFile {
+	private RFEntry[] registerFile;
 }
