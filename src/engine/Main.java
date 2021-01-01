@@ -11,7 +11,7 @@ public class Main {
 	static int cycle;
 	static InstructionUnit insUnit;
 	public static void main(String[] args) {
-
+		init();
 	}
 
 	static void displayCycle() {
