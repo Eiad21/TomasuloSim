@@ -1,10 +1,10 @@
 package utility;
 
 public class Instruction {
-OP op ;
-int dest;
-int reg1;
-int reg2;
+public OP op ;
+public int dest;
+public int reg1;
+public int reg2;
 public Instruction(OP op, int dest, int reg1, int reg2) {
 	super();
 	this.op = op;
