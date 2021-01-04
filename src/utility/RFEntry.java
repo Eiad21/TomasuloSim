@@ -14,4 +14,8 @@ public class RFEntry {
 		this.value = value;
 		this.qI = qI;
 	}
+	
+	public String toString() {
+		return value + "  " + qI;
+	}
 }

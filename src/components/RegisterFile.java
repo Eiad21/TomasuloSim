@@ -5,8 +5,13 @@ import components.*;
 import java.util.*;
 
 public class RegisterFile {
-	private RFEntry[] registerFile;
+	public RFEntry[] registerFile;
 	
+	public RegisterFile() {
+		registerFile = new RFEntry[5];
+		for(int i = 0;i<registerFile.length;i++)
+			registerFile[i] = new RFEntry();
+	}
 	public RFEntry getEntry(int index) {
 		return registerFile[index];
 	}
@@ -19,5 +24,13 @@ public class RegisterFile {
 				x.qI=null;
 			}	
 		}
+	}
+	
+	public String toString() {
+		String out = "";
+		for(int i = 0;i<registerFile.length;i++) {
+			out+= registerFile[i] + "\n";
+		}
+		return out;
 	}
 }
