@@ -85,14 +85,24 @@ public class Engine {
 		}
 		
 		if(inst.op==OP.STORE) {
-			for(int i=0;i<stores.length;i++) {
-				if(!stores[i].isBusy()) {
-					rs=stores[i];
-					break;
+			for(int i=0;i<stores.length;i++) {// to check both instructions with same address 
+				if(stores[i].A==inst.reg2) {//the condition 
+					return;
 				}
 			}
+//			for(int i=0;i<stores.length;i++) { // no need to rewrite on the register file
+//				if(!stores[i].isBusy()) {
+//					rs=stores[i];            
+//					break;
+//				}
+//			}
 		}
 		if(inst.op==OP.LOAD) {
+			for(int i=0;i<loads.length;i++) {// to check both instructions with same address 
+				if(loads[i].A==inst.reg2) {//the condition 
+					return;
+				}
+			}
 			for(int i=0;i<loads.length;i++) {
 				if(!loads[i].isBusy()) {
 					rs=loads[i];

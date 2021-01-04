@@ -8,7 +8,7 @@ public class ReservationStation {
 	private OP op;
 	private double vJ, vK;
 	private ReservationStation qJ, qK;
-	private int A;
+	public int A;
 	private double result;
 	private int timeRemExec;
 	private Engine engine;
@@ -42,8 +42,8 @@ public class ReservationStation {
         case SUB: result =  vJ - vK;return;
         case MUL: result =  vJ * vK;return;
         case DIV: result =  vJ / vK;return;
-        case LOAD: result = engine.mem.readDouble(A);
-        case STORE:engine.mem.writeDouble(A, this.vJ);
+        case LOAD: result = engine.mem.readDouble(A);return;
+        case STORE:engine.mem.writeDouble(A, this.vJ);return;
 //        case LOAD:
 //        case STORE:
         default: result =  0;return;
