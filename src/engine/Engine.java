@@ -21,7 +21,7 @@ public class Engine {
 	private Queue<RFEntry> buffer;
 	private ReservationStation[] loads;
 	private ReservationStation[] stores;
-	private MemoryUnit mem ;
+	public MemoryUnit mem ;
 	String [] test = {"add 0 1 2","sub 0 1 2"};
 	
 	public Engine() {
@@ -84,7 +84,23 @@ public class Engine {
 			}
 		}
 		
-		if(rs!=null) {
+		if(inst.op==OP.STORE) {
+			for(int i=0;i<stores.length;i++) {
+				if(!stores[i].isBusy()) {
+					rs=stores[i];
+					break;
+				}
+			}
+		}
+		if(inst.op==OP.LOAD) {
+			for(int i=0;i<loads.length;i++) {
+				if(!loads[i].isBusy()) {
+					rs=loads[i];
+					break;
+				}
+			}
+		}
+		if(rs!=null&&(inst.op==OP.ADD||inst.op==OP.SUB||inst.op==OP.MUL||inst.op==OP.DIV)) {
 			RFEntry entry1 = registerFile.getEntry(inst.reg1);
 			RFEntry entry2 = registerFile.getEntry(inst.reg2);
 			double vJ = entry1.value;
@@ -93,6 +109,15 @@ public class Engine {
 			ReservationStation qK = entry2.qI;
 			
 			rs.issueInst(inst.op, vJ, vK, qJ, qK);
+			
+			PC++;
+		}
+		if(rs!=null&&(inst.op==OP.STORE||inst.op==OP.LOAD)) {
+			RFEntry entry1 = registerFile.getEntry(inst.reg1);
+			double vJ = entry1.value;
+			ReservationStation qJ = entry1.qI;
+			
+			rs.issueInst(inst.op, vJ, 0, qJ, null);
 			
 			PC++;
 		}
