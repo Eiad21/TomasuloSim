@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import components.InstructionUnit;
+import components.MemoryUnit;
 import components.RegisterFile;
 import components.ReservationStation;
 import utility.Instruction;
@@ -18,14 +19,16 @@ public class Engine {
 	private ReservationStation[] muls;
 	private ReservationStation[] adds;
 	private Queue<RFEntry> buffer;
-//	private ReservationStation[] loads;
-//	private ReservationStation[] stores;
-	
+	private ReservationStation[] loads;
+	private ReservationStation[] stores;
+	private MemoryUnit mem ;
 	String [] test = {"add 0 1 2","sub 0 1 2"};
 	
 	public Engine() {
 		muls = new ReservationStation[2];
 		adds = new ReservationStation[3];
+		loads = new ReservationStation[4];
+		stores = new ReservationStation[4];
 		
 		buffer = new LinkedList<RFEntry>();
 		
@@ -37,6 +40,7 @@ public class Engine {
 		}
 		insUnit= new InstructionUnit();
 		registerFile = new RegisterFile();
+		mem=new MemoryUnit();
 	}
 	
 	public void publish(ReservationStation rs, double result) {
