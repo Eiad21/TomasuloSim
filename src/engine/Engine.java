@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+import javax.naming.spi.DirStateFactory.Result;
+import javax.xml.transform.Templates;
+
 import components.InstructionUnit;
 import components.MemoryUnit;
 import components.RegisterFile;
@@ -16,16 +19,16 @@ public class Engine {
 	int PC = 0;
 	int cycle = 1;
 	
-	private RegisterFile registerFile;
-	private InstructionUnit insUnit;
+	public RegisterFile registerFile;
+	public InstructionUnit insUnit;
 	public MemoryUnit mem ;
 	
-	private ReservationStation[] muls;
-	private ReservationStation[] adds;
-	private ReservationStation[] loads;
-	private ReservationStation[] stores;
+	public ReservationStation[] muls;
+	public ReservationStation[] adds;
+	public ReservationStation[] loads;
+	public ReservationStation[] stores;
 	
-	private Queue<RFEntry> buffer;
+	public Queue<RFEntry> buffer;
 	String [] test = {"add 0 1 2","sub 0 1 2"};
 	
 	public Engine() {
@@ -228,7 +231,9 @@ public class Engine {
 		Engine eng = new Engine();
 		eng.insUnit.instructionUnit.add(new Instruction(OP.ADD, 0, 2, 3));
 		eng.insUnit.instructionUnit.add(new Instruction(OP.SUB, 1, 0, 4));
-		
+		  GUI f = new GUI();
+		  f.engine=eng; 
+		    f.setVisible(true);
 		eng.runCycle();
 		eng.runCycle();
 		eng.runCycle();
@@ -243,33 +248,98 @@ public class Engine {
 		eng.runCycle();
 	}
 	
-	public void init() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("please enter number of instructions ?");
-		int insCount=scanner.nextInt();
-		insUnit=new InstructionUnit();
-		for(int i=0;i<insCount;i++) {
-				System.out.println("enter instruction " + (i+1)+" type :");
-				String temp1=scanner.next();
-				System.out.println("enter instruction " + (i+1)+" destination :");
-				int temp2=scanner.nextInt();
-				System.out.println("enter instruction " + (i+1)+" register 1 :");
-				int temp3=scanner.nextInt();
-				System.out.println("enter instruction " + (i+1)+" register 2 :");
-				int temp4=scanner.nextInt();
+
+	
+	
+	public String[][]  getAdds() {
+		String [][] temp =new String[this.adds.length+1][7];
+		temp[0][0]="busy";
+		temp[0][1]="op";
+		temp[0][2]="vj";
+		temp[0][3]="vk";
+		temp[0][4]="qj";
+		temp[0][5]="qk";
+		temp[0][6]="time remaining";
+		for(int i=1;i<temp.length;i++) {
+				temp[i][0]=adds[i-1].getBusy();
+				temp[i][1]=adds[i-1].getop();
+				temp[i][2]=""+adds[i-1].getvJ();
+				temp[i][3]=""+adds[i-1].getvK();
+				temp[i][4]=adds[i-1].getqJ();
+				temp[i][5]=adds[i-1].getqK();
+				temp[i][6]=adds[i-1].getTimeRemExec();
+
 			
-				if(temp1.equals("add"));
-				insUnit.instructionUnit.add(new Instruction(OP.ADD, temp2, temp3, temp4));
-				if(temp1.equals("sub"));
-				insUnit.instructionUnit.add(new Instruction(OP.SUB, temp2, temp3, temp4));
-				if(temp1.equals("mul"));
-				insUnit.instructionUnit.add(new Instruction(OP.MUL, temp2, temp3, temp4));
-				if(temp1.equals("div"));
-				insUnit.instructionUnit.add(new Instruction(OP.DIV, temp2, temp3, temp4));
-				if(temp1.equals("load"));
-				insUnit.instructionUnit.add(new Instruction(OP.LOAD, temp2, temp3, temp4));
-				if(temp1.equals("store"));
-				insUnit.instructionUnit.add(new Instruction(OP.STORE, temp2, temp3, temp4));		
-			}
 		}
+		return temp;
+	}
+	
+	public String[][]  getMuls() {
+		String [][] temp =new String[this.muls.length+1][7];
+		temp[0][0]="busy";
+		temp[0][1]="op";
+		temp[0][2]="vj";
+		temp[0][3]="vk";
+		temp[0][4]="qj";
+		temp[0][5]="qk";
+		temp[0][6]="time remaining";
+
+		for(int i=1;i<temp.length;i++) {
+				temp[i][0]=muls[i-1].getBusy();
+				temp[i][1]=muls[i-1].getop();
+				temp[i][2]=""+muls[i-1].getvJ();
+				temp[i][3]=""+muls[i-1].getvK();
+				temp[i][4]=muls[i-1].getqJ();
+				temp[i][5]=muls[i-1].getqK();
+				temp[i][6]=muls[i-1].getTimeRemExec();
+
+			
+		}
+		return temp;
+	}
+	
+	public String[][]  getLoads() {
+		String [][] temp =new String[this.loads.length+1][6];
+		temp[0][0]="busy";
+		temp[0][1]="op";
+		temp[0][2]="vj";
+		temp[0][3]="qj";
+		temp[0][3]="A";
+		temp[0][5]="time remaining";
+
+
+		for(int i=1;i<temp.length;i++) {
+				temp[i][0]=loads[i-1].getBusy();
+				temp[i][1]=loads[i-1].getop();
+				temp[i][2]=""+loads[i-1].getvJ();
+				temp[i][4]=loads[i-1].getqJ();
+				temp[i][5]=loads[i-1].getA();
+				temp[i][6]=loads[i-1].getTimeRemExec();
+
+			
+		}
+		return temp;
+	}
+	
+	public String[][]  getStores() {
+		String [][] temp =new String[this.stores.length+1][6];
+		temp[0][0]="busy";
+		temp[0][1]="op";
+		temp[0][2]="vj";
+		temp[0][3]="qj";
+		temp[0][3]="A";
+		temp[0][5]="time remaining";
+
+		for(int i=1;i<temp.length;i++) {
+				temp[i][0]=stores[i-1].getBusy();
+				temp[i][1]=stores[i-1].getop();
+				temp[i][2]=""+stores[i-1].getvJ();
+				temp[i][4]=stores[i-1].getqJ();
+				temp[i][5]=stores[i-1].getA();
+				temp[i][6]=stores[i-1].getTimeRemExec();
+
+			
+		}
+		return temp;
+	}
 }

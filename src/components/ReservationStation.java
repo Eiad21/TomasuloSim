@@ -12,6 +12,76 @@ public class ReservationStation {
 	private double result = 0;
 	private int timeRemExec;
 	private Engine engine;
+	public OP getOp() {
+		return op;
+	}
+
+	public String getop() {
+		if(op==OP.ADD)
+			return "ADD";
+		else if (op==OP.SUB) 
+			return "SUB";
+		else if (op==OP.MUL) 
+			return "MUL";	
+		else if (op==OP.DIV) 
+			return "DIV";	
+		else if (op==OP.STORE) 
+			return "STORE";	
+		else if (op==OP.LOAD) 
+			return "LOAD";	
+		else return"null";
+		
+	}
+
+	public double getvJ() {
+		return vJ;
+	}
+
+
+
+	public double getvK() {
+		return vK;
+	}
+
+	
+	public String getqJ() {
+		if(qJ==null)
+			return"empty";
+		else return"ref";
+	}
+
+
+
+	public String getqK() {
+		if(qK==null)
+			return"empty";
+		else return"ref";	}
+
+
+	public String getA() {
+		return A+"";
+	}
+
+
+	public String getResult() {
+		return result+"";
+	}
+
+
+
+	public String getTimeRemExec() {
+		return timeRemExec+"";
+	}
+
+
+
+
+
+
+	public void setBusy(boolean busy) {
+		this.busy = busy;
+	}
+
 	public ReservationStation(Engine engine) {
 		busy = false;
 		this.engine = engine;
@@ -21,7 +91,13 @@ public class ReservationStation {
 	public boolean isBusy() {
 		return busy;
 	}
-	
+	public String getBusy() {
+		if(busy)
+			return "true";
+		else 
+			return"false";
+
+	}
 	public void issueInst(OP op, double vJ, double vK, ReservationStation qJ, ReservationStation qK) {
 		this.op = op;
 		this.vJ = vJ;
