@@ -15,15 +15,37 @@ class GUI extends JFrame {
   private JLabel lblA = new JLabel("A :");
   private JLabel lblB = new JLabel("B :");
   private JLabel lblC = new JLabel("C :");
+  
+  
   public static void main(String[] args){
 	  GUI f = new GUI();
 	    f.setVisible(true);
 	  }
   public GUI(){
     setTitle("Tomasulo");
-    setSize(1000,1000);
+    setSize(1400,800);
     setLocation(new Point(300,200));
-    setLayout(null);    
+    
+    GridLayout gl = new GridLayout(0,2);
+    setLayout(gl);
+    // START LEFT SIDE
+    add(new JButton("Button 2"));
+    // END LEFT SIDE
+    
+    // START RIGHT SIDE
+    
+    JPanel rightSide = new JPanel();
+    add(rightSide);
+    rightSide.setLayout(new GridLayout(2,0));
+    
+    JButton topRight = new JButton();
+    JPanel bottomRight = new JPanel(new GridLayout(2,0));
+    rightSide.add(topRight);
+    rightSide.add(bottomRight);
+    
+    
+    // END LEFT SIDE
+    
     setResizable(false);
 
     initComponent();    
@@ -45,21 +67,20 @@ class GUI extends JFrame {
     for(int i=0;i<4;i++) {
     	JLabel lbool = new JLabel(x);
     	lbool.setBounds(20+(i*30),10,100,20);
-        add(lbool);
         
 
     }
     x="eydo";
-    add(btnTutup);
-    add(btnTambah);
-
-    add(lblA);
-    add(lblB);
-    add(lblC);
-
-    add(txtA);
-    add(txtB);
-    add(txtC);
+//    add(btnTutup);
+//    add(btnTambah);
+//
+//    add(lblA);
+//    add(lblB);
+//    add(lblC);
+//
+//    add(txtA);
+//    add(txtB);
+//    add(txtC);
   }
 
   private void initEvent(){

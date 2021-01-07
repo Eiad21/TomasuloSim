@@ -9,8 +9,10 @@ public class RegisterFile {
 	
 	public RegisterFile() {
 		registerFile = new RFEntry[5];
-		for(int i = 0;i<registerFile.length;i++)
+		for(int i = 0;i<registerFile.length;i++) {
 			registerFile[i] = new RFEntry();
+			registerFile[i].value = i+1;
+		}
 	}
 	public RFEntry getEntry(int index) {
 		return registerFile[index];
