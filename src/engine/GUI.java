@@ -7,7 +7,7 @@ class GUI extends JFrame {
 
   private JButton btnTutup  = new JButton("Tutup");
   private JButton btnTambah = new JButton("Tambah");
-  public Engine engine ;
+  public Engine engine;
   private JTextField txtA = new JTextField();
   private JTextField txtB = new JTextField();
   private JTextField txtC = new JTextField();
@@ -18,10 +18,11 @@ class GUI extends JFrame {
   
   
   public static void main(String[] args){
-	  GUI f = new GUI();
+	  GUI f = new GUI(new Engine());
 	    f.setVisible(true);
 	  }
-  public GUI(){
+  public GUI(Engine engine){
+	  this.engine = engine;
     setTitle("Tomasulo");
     setSize(1400,800);
     setLocation(new Point(300,200));
@@ -43,6 +44,8 @@ class GUI extends JFrame {
     rightSide.add(topRight);
     rightSide.add(bottomRight);
     
+    setUpBottomRight(bottomRight);
+    
     
     // END LEFT SIDE
     
@@ -52,6 +55,37 @@ class GUI extends JFrame {
     initEvent();    
   }
 
+  private void setUpBottomRight(JPanel bottomRight) {
+	  setUpMuls(bottomRight);
+	  setUpAdds(bottomRight);
+  }
+  private void setUpMuls(JPanel bottomRight) {
+	  String[][] data = engine.getMuls();
+	  for(int i = 0;i<data.length;i++) {
+		  for(int j = 0;j<data[0].length;j++)
+			  System.out.print(data[i][j]+" ");
+		  System.out.println();
+	  }
+	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  bottomRight.add(sp);
+  }
+  private void setUpAdds(JPanel bottomRight) {
+	  String[][] data = engine.getAdds();
+	  for(int i = 0;i<data.length;i++) {
+		  for(int j = 0;j<data[0].length;j++)
+			  System.out.print(data[i][j]+" ");
+		  System.out.println();
+	  }
+	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  bottomRight.add(sp);
+  }
+  
   private void initComponent(){
     btnTutup.setBounds(300,130, 80,25);
     btnTambah.setBounds(300,100, 80,25);

@@ -231,7 +231,7 @@ public class Engine {
 		Engine eng = new Engine();
 		eng.insUnit.instructionUnit.add(new Instruction(OP.ADD, 0, 2, 3));
 		eng.insUnit.instructionUnit.add(new Instruction(OP.SUB, 1, 0, 4));
-		  GUI f = new GUI();
+		  GUI f = new GUI(eng);
 		  f.engine=eng; 
 		    f.setVisible(true);
 		eng.runCycle();
@@ -252,22 +252,15 @@ public class Engine {
 	
 	
 	public String[][]  getAdds() {
-		String [][] temp =new String[this.adds.length+1][7];
-		temp[0][0]="busy";
-		temp[0][1]="op";
-		temp[0][2]="vj";
-		temp[0][3]="vk";
-		temp[0][4]="qj";
-		temp[0][5]="qk";
-		temp[0][6]="time remaining";
-		for(int i=1;i<temp.length;i++) {
-				temp[i][0]=adds[i-1].getBusy();
-				temp[i][1]=adds[i-1].getop();
-				temp[i][2]=""+adds[i-1].getvJ();
-				temp[i][3]=""+adds[i-1].getvK();
-				temp[i][4]=adds[i-1].getqJ();
-				temp[i][5]=adds[i-1].getqK();
-				temp[i][6]=adds[i-1].getTimeRemExec();
+		String [][] temp =new String[this.adds.length][7];
+		for(int i=0;i<temp.length;i++) {
+				temp[i][0]=adds[i].getBusy();
+				temp[i][1]=adds[i].getop();
+				temp[i][2]=""+adds[i].getvJ();
+				temp[i][3]=""+adds[i].getvK();
+				temp[i][4]=adds[i].getqJ();
+				temp[i][5]=adds[i].getqK();
+				temp[i][6]=adds[i].getTimeRemExec();
 
 			
 		}
@@ -275,23 +268,15 @@ public class Engine {
 	}
 	
 	public String[][]  getMuls() {
-		String [][] temp =new String[this.muls.length+1][7];
-		temp[0][0]="busy";
-		temp[0][1]="op";
-		temp[0][2]="vj";
-		temp[0][3]="vk";
-		temp[0][4]="qj";
-		temp[0][5]="qk";
-		temp[0][6]="time remaining";
-
-		for(int i=1;i<temp.length;i++) {
-				temp[i][0]=muls[i-1].getBusy();
-				temp[i][1]=muls[i-1].getop();
-				temp[i][2]=""+muls[i-1].getvJ();
-				temp[i][3]=""+muls[i-1].getvK();
-				temp[i][4]=muls[i-1].getqJ();
-				temp[i][5]=muls[i-1].getqK();
-				temp[i][6]=muls[i-1].getTimeRemExec();
+		String [][] temp =new String[this.muls.length][7];
+		for(int i=0;i<temp.length;i++) {
+				temp[i][0]=muls[i].getBusy();
+				temp[i][1]=muls[i].getop();
+				temp[i][2]=""+muls[i].getvJ();
+				temp[i][3]=""+muls[i].getvK();
+				temp[i][4]=muls[i].getqJ();
+				temp[i][5]=muls[i].getqK();
+				temp[i][6]=muls[i].getTimeRemExec();
 
 			
 		}
