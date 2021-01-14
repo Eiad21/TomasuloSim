@@ -1,7 +1,7 @@
 package components;
 
 public class MemoryUnit {
-private double[] memo ;
+public double[] memo ;
 	public MemoryUnit() {
 	memo =new double[50] ;
 	}

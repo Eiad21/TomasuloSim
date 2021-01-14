@@ -234,22 +234,26 @@ public class Engine {
 		  GUI f = new GUI(eng);
 		  f.engine=eng; 
 		    f.setVisible(true);
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
-		eng.runCycle();
 	}
 	
 
 	
+	public String[][]  getRegFile() {
+		String [][] temp =new String[this.registerFile.registerFile.length][2];
+		for(int i=0;i<temp.length;i++) {
+				temp[i][0]=registerFile.registerFile[i].value+"";
+				temp[i][1]=registerFile.registerFile[i].qI+"";
+		}
+		return temp;
+	}
+	
+	public String[][]  getMem() {
+		String [][] temp =new String[this.mem.memo.length][1];
+		for(int i=0;i<temp.length;i++) {
+				temp[i][0]=mem.memo[i]+"";
+		}
+		return temp;
+	}
 	
 	public String[][]  getAdds() {
 		String [][] temp =new String[this.adds.length][7];

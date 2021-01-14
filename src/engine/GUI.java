@@ -5,17 +5,11 @@ import java.awt.event.*;
 
 class GUI extends JFrame {
 
-  private JButton btnTutup  = new JButton("Tutup");
-  private JButton btnTambah = new JButton("Tambah");
   public Engine engine;
-  private JTextField txtA = new JTextField();
-  private JTextField txtB = new JTextField();
-  private JTextField txtC = new JTextField();
-
-  private JLabel lblA = new JLabel("A :");
-  private JLabel lblB = new JLabel("B :");
-  private JLabel lblC = new JLabel("C :");
+  JButton nextCycleBtn;
   
+  JPanel topRight;
+  JPanel bottomRight;
   
   public static void main(String[] args){
 	  GUI f = new GUI(new Engine());
@@ -27,9 +21,27 @@ class GUI extends JFrame {
     setSize(1400,800);
     setLocation(new Point(300,200));
     
-    GridLayout gl = new GridLayout(0,2);
-    setLayout(gl);
+    GridLayout glMain = new GridLayout(0,2);
+    JPanel mainContent = new JPanel(glMain);
+    
+    BorderLayout bl = new BorderLayout();
+    setLayout(bl);
+    
+    nextCycleBtn = new JButton("Next Cycle");
+    nextCycleBtn.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			engine.runCycle();
+			bottomRight.removeAll();
+			topRight.removeAll();
+			setUpBottomRight();
+			setUpTopRight();
+			refresh();
+		}
+	});
     // START LEFT SIDE
+<<<<<<< HEAD
    // add(new JButton("Button 2"));
     
     JPanel leftSide = new JPanel();
@@ -43,35 +55,48 @@ class GUI extends JFrame {
     
     setUpBottomRight(bottomLeft);
     
+=======
+    mainContent.add(new JButton("Button 2"));
+>>>>>>> fb8a260ed30bfb8ae4606e3279d17e7f637a1a1c
     // END LEFT SIDE
     
     // START RIGHT SIDE
     
     JPanel rightSide = new JPanel();
-    add(rightSide);
+    mainContent.add(rightSide);
     rightSide.setLayout(new GridLayout(2,0));
     
-    JButton topRight = new JButton();
-    JPanel bottomRight = new JPanel(new GridLayout(2,0));
+    topRight = new JPanel(new GridLayout(0,2));
+    bottomRight = new JPanel(new GridLayout(2,0));
     rightSide.add(topRight);
     rightSide.add(bottomRight);
     
+<<<<<<< HEAD
     setUpBottomRight(bottomRight);
     setUpBottomLeft(bottomLeft);
 
+=======
+    setUpBottomRight();
+    setUpTopRight();
+>>>>>>> fb8a260ed30bfb8ae4606e3279d17e7f637a1a1c
     
     // END LEFT SIDE
     
+    add(mainContent, BorderLayout.CENTER);
+    add(nextCycleBtn, BorderLayout.SOUTH);
+    
     setResizable(false);
 
-    initComponent();    
     initEvent();    
   }
 
-  private void setUpBottomRight(JPanel bottomRight) {
-	  setUpMuls(bottomRight);
-	  setUpAdds(bottomRight);
+  public void refresh() {
+	  this.invalidate();
+	  this.validate();
+	  this.repaint();
+	  // TODO: get updated values to be displayed
   }
+<<<<<<< HEAD
   
   private void setUpBottomLeft(JPanel bottomLeft) {
 	  setUpStores(bottomLeft);
@@ -85,13 +110,26 @@ class GUI extends JFrame {
 		  System.out.println();
 	  }
 	  
+=======
+  private void setUpBottomRight() {
+	  setUpMuls();
+	  setUpAdds();
+  }
+  private void setUpTopRight() {
+	  setUpRegfile();
+	  setUpMem();
+  }
+  private void setUpMuls() {
+	  String[][] data = engine.getMuls();
+>>>>>>> fb8a260ed30bfb8ae4606e3279d17e7f637a1a1c
 	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
 	  
 	  JTable j = new JTable(data, columns);
 	  JScrollPane sp = new JScrollPane(j);
 	  bottomRight.add(sp);
   }
-  private void setUpAdds(JPanel bottomRight) {
+
+  private void setUpAdds() {
 	  String[][] data = engine.getAdds();
 	  for(int i = 0;i<data.length;i++) {
 		  for(int j = 0;j<data[0].length;j++)
@@ -119,6 +157,7 @@ class GUI extends JFrame {
 	  bottomRight.add(sp);
   }
   
+<<<<<<< HEAD
   private void setUpLoads(JPanel bottomRight) {
 	  String[][] data = engine.getLoads();
 	  for(int i = 0;i<data.length;i++) {
@@ -162,47 +201,32 @@ class GUI extends JFrame {
 //    add(txtA);
 //    add(txtB);
 //    add(txtC);
+=======
+  private void setUpRegfile() {
+	  String[][] data = engine.getRegFile();
+	  String columns[] = {"Value", "QI"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  topRight.add(sp);
+>>>>>>> fb8a260ed30bfb8ae4606e3279d17e7f637a1a1c
   }
-
+  
+  private void setUpMem() {
+	  String[][] data = engine.getMem();
+	  String columns[] = {"Value"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  topRight.add(sp);
+  }
+  
+//732 782 11
   private void initEvent(){
-
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e){
        System.exit(1);
       }
     });
-
-    btnTutup.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        btnTutupClick(e);
-      }
-    });
-
-    btnTambah.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        btnTambahClick(e);
-      }
-    });
-  }
-  
-  private void btnTutupClick(ActionEvent evt){// next cycle
-    System.exit(0);
-  }
-  
-  private void btnTambahClick(ActionEvent evt){
-    Integer x,y,z;
-    try{
-      x = Integer.parseInt(txtA.getText());
-      y = Integer.parseInt(txtB.getText());
-      z = x + y;
-      txtC.setText(z.toString());
-
-    }catch(Exception e){
-      System.out.println(e);
-      JOptionPane.showMessageDialog(null, 
-          e.toString(),
-          "Error", 
-          JOptionPane.ERROR_MESSAGE);
-    }
   }
 }
