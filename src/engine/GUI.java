@@ -30,7 +30,19 @@ class GUI extends JFrame {
     GridLayout gl = new GridLayout(0,2);
     setLayout(gl);
     // START LEFT SIDE
-    add(new JButton("Button 2"));
+   // add(new JButton("Button 2"));
+    
+    JPanel leftSide = new JPanel();
+    add(leftSide);
+    leftSide.setLayout(new GridLayout(2,0));
+    
+    JButton topLeft = new JButton();
+    JPanel bottomLeft = new JPanel(new GridLayout(2,0));
+    leftSide.add(topLeft);
+    leftSide.add(bottomLeft);
+    
+    setUpBottomRight(bottomLeft);
+    
     // END LEFT SIDE
     
     // START RIGHT SIDE
@@ -45,7 +57,8 @@ class GUI extends JFrame {
     rightSide.add(bottomRight);
     
     setUpBottomRight(bottomRight);
-    
+    setUpBottomLeft(bottomLeft);
+
     
     // END LEFT SIDE
     
@@ -59,6 +72,11 @@ class GUI extends JFrame {
 	  setUpMuls(bottomRight);
 	  setUpAdds(bottomRight);
   }
+  
+  private void setUpBottomLeft(JPanel bottomLeft) {
+	  setUpStores(bottomLeft);
+	  setUpLoads(bottomLeft);
+  }
   private void setUpMuls(JPanel bottomRight) {
 	  String[][] data = engine.getMuls();
 	  for(int i = 0;i<data.length;i++) {
@@ -66,6 +84,7 @@ class GUI extends JFrame {
 			  System.out.print(data[i][j]+" ");
 		  System.out.println();
 	  }
+	  
 	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
 	  
 	  JTable j = new JTable(data, columns);
@@ -85,7 +104,35 @@ class GUI extends JFrame {
 	  JScrollPane sp = new JScrollPane(j);
 	  bottomRight.add(sp);
   }
+  private void setUpStores(JPanel bottomRight) {
+	  String[][] data = engine.getStores();
+	  for(int i = 0;i<data.length;i++) {
+		  for(int j = 0;j<data[0].length;j++)
+			  System.out.print(data[i][j]+" ");
+		  System.out.println();
+	  }
+	  
+	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  bottomRight.add(sp);
+  }
   
+  private void setUpLoads(JPanel bottomRight) {
+	  String[][] data = engine.getLoads();
+	  for(int i = 0;i<data.length;i++) {
+		  for(int j = 0;j<data[0].length;j++)
+			  System.out.print(data[i][j]+" ");
+		  System.out.println();
+	  }
+	  
+	  String columns[] = {"Busy", "OP", "Vj", "Vk", "Qj", "Qk", "Rem-Time"};
+	  
+	  JTable j = new JTable(data, columns);
+	  JScrollPane sp = new JScrollPane(j);
+	  bottomRight.add(sp);
+  }
   private void initComponent(){
     btnTutup.setBounds(300,130, 80,25);
     btnTambah.setBounds(300,100, 80,25);

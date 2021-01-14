@@ -284,7 +284,7 @@ public class Engine {
 	}
 	
 	public String[][]  getLoads() {
-		String [][] temp =new String[this.loads.length+1][6];
+		String [][] temp =new String[this.loads.length+1][7];
 		temp[0][0]="busy";
 		temp[0][1]="op";
 		temp[0][2]="vj";
@@ -307,7 +307,7 @@ public class Engine {
 	}
 	
 	public String[][]  getStores() {
-		String [][] temp =new String[this.stores.length+1][6];
+		String [][] temp =new String[this.stores.length+1][7];
 		temp[0][0]="busy";
 		temp[0][1]="op";
 		temp[0][2]="vj";
